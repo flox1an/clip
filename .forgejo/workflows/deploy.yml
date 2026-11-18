@@ -1,8 +1,9 @@
 # Builds the Docker image and triggers a redeploy when main changes.
 # Runs on Forgejo Actions. Everything environment-specific comes from the repository's
 # Actions variables and secrets, so nothing private lives in this file:
-#   variables: REGISTRY, REGISTRY_USER, IMAGE, DEPLOY_URL
-#   secrets:   REGISTRY_TOKEN, DEPLOY_TOKEN
+#   variables: REGISTRY, IMAGE, DEPLOY_URL, and optionally REGISTRY_USER
+#   secrets:   DEPLOY_TOKEN, and optionally REGISTRY_TOKEN
+# Registry login falls back to the user and token Forgejo gives every workflow run.
 # Without these variables (for example in a fork) the job is skipped.
 name: deploy
 on:
@@ -16,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REGISTRY: ${{ vars.REGISTRY }}
-      REGISTRY_USER: ${{ vars.REGISTRY_USER }}
+      REGISTRY_USER: ${{ vars.REGISTRY_USER || github.actor }}
       IMAGE: ${{ vars.IMAGE }}
       DEPLOY_URL: ${{ vars.DEPLOY_URL }}
-      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN || secrets.GITHUB_TOKEN }}
       DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
     steps:
       - uses: actions/checkout@v4

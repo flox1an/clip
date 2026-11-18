@@ -42,10 +42,10 @@ The image serves the static build with nginx; see `nginx.conf`.
 | Kind | Name | Meaning |
 | --- | --- | --- |
 | Variable | `REGISTRY` | Container registry host, used for `docker login` |
-| Variable | `REGISTRY_USER` | Registry user name |
+| Variable | `REGISTRY_USER` | Optional. Registry user name; defaults to the user running the workflow |
 | Variable | `IMAGE` | Full image name without tag, for example `registry.example.com/user/clip` |
 | Variable | `DEPLOY_URL` | Optional. URL that is called with `POST` to start the redeploy |
-| Secret | `REGISTRY_TOKEN` | Registry access token |
+| Secret | `REGISTRY_TOKEN` | Optional. Registry access token; defaults to the token Forgejo provides to the run |
 | Secret | `DEPLOY_TOKEN` | Optional. Bearer token sent to `DEPLOY_URL` |
 
 ## Project layout
