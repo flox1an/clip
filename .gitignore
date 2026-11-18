@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.*
+
+# Local tooling and private deploy config (kept on disk, not published)
+.forgejo/
+.impeccable/
+pandacode-run.sh
