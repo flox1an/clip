@@ -33,7 +33,7 @@ One-handed phone use, usually portrait, often outdoors or in changing light. Ses
 - Export: one MP4 combining all clips, regardless of source resolution or orientation; output is portrait 9:16; filters and music are rendered in.
 - Output destinations: download, Web Share, and optional Blossom upload with a signed Nostr video event preview. Clip runs without an app backend.
 - Project lives only in the current session; nothing persists across reloads.
-- UI languages: German and English, chosen from the device language (anything else gets English); `?lang=de|en` overrides. All texts live in `src/i18n/` (one file per language).
+- UI languages: German, English, Spanish, French, Italian, Dutch, Polish and Portuguese, chosen from the device language (anything else gets English); `?lang=<code>` overrides. All texts live in `src/i18n/` (one file per language).
 - Stack: Vite, vanilla JS, mediabunny for media decode/encode.
 
 ## Brand Commitments

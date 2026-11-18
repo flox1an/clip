@@ -1,8 +1,14 @@
 // UI text per language. Add a language: create <code>.js next to this file with the same keys and register it below.
 import de from './de.js';
 import en from './en.js';
+import es from './es.js';
+import fr from './fr.js';
+import it from './it.js';
+import nl from './nl.js';
+import pl from './pl.js';
+import pt from './pt.js';
 
-const messages = { de, en };
+const messages = { de, en, es, fr, it, nl, pl, pt };
 
 export const LANGUAGES = Object.keys(messages);
 // ?lang=en overrides the device language (handy for testing); otherwise the first supported device language, else English.

@@ -10,7 +10,7 @@ A mobile-first web app (PWA) for recording short vertical videos, cutting them a
 - **Music:** add your own audio file, pick the section, balance it against the original sound.
 - **Export** one portrait 9:16 MP4 (max. 60 s) with looks and music rendered in. Download it or share it through the system share sheet.
 - **Publish to Nostr** (optional): upload the video to [Blossom](https://github.com/hzrd149/blossom) servers and publish a signed video event (kinds 34235/34236). Signing works with a NIP-07 browser extension or a NIP-46 remote signer (QR code, `nostrconnect://` link or `bunker://` link).
-- German and English UI, chosen from the device language; `?lang=de|en` overrides it.
+- UI in German, English, Spanish, French, Italian, Dutch, Polish and Portuguese, chosen from the device language (English as fallback); `?lang=<code>` overrides it.
 
 ## Getting started
 
