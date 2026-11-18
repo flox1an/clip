@@ -5,7 +5,6 @@ dist/
 .env
 .env.*
 
-# Local tooling and private deploy config (kept on disk, not published)
-.forgejo/
+# Local tooling (kept on disk, not published)
 .impeccable/
 pandacode-run.sh

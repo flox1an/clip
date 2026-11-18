@@ -34,6 +34,20 @@ docker run --rm -p 8080:80 clip
 
 The image serves the static build with nginx; see `nginx.conf`.
 
+### Continuous integration and deployment
+
+- `.github/workflows/ci.yml` runs the tests and the build on GitHub for every push to `main` and every pull request.
+- `.forgejo/workflows/deploy.yml` builds the Docker image and triggers a redeploy when `main` changes. It is configured entirely through the repository's Forgejo Actions settings and does nothing without them:
+
+| Kind | Name | Meaning |
+| --- | --- | --- |
+| Variable | `REGISTRY` | Container registry host, used for `docker login` |
+| Variable | `REGISTRY_USER` | Registry user name |
+| Variable | `IMAGE` | Full image name without tag, for example `registry.example.com/user/clip` |
+| Variable | `DEPLOY_URL` | Optional. URL that is called with `POST` to start the redeploy |
+| Secret | `REGISTRY_TOKEN` | Registry access token |
+| Secret | `DEPLOY_TOKEN` | Optional. Bearer token sent to `DEPLOY_URL` |
+
 ## Project layout
 
 | Path | Purpose |

@@ -1,0 +1,40 @@
+# Builds the Docker image and triggers a redeploy when main changes.
+# Runs on Forgejo Actions. Everything environment-specific comes from the repository's
+# Actions variables and secrets, so nothing private lives in this file:
+#   variables: REGISTRY, REGISTRY_USER, IMAGE, DEPLOY_URL
+#   secrets:   REGISTRY_TOKEN, DEPLOY_TOKEN
+# Without these variables (for example in a fork) the job is skipped.
+name: deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ vars.IMAGE != '' && vars.REGISTRY != '' }}
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: ${{ vars.REGISTRY }}
+      REGISTRY_USER: ${{ vars.REGISTRY_USER }}
+      IMAGE: ${{ vars.IMAGE }}
+      DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+      REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+      DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and push image
+        run: |
+          printf '%s' "$REGISTRY_TOKEN" | docker login "$REGISTRY" -u "$REGISTRY_USER" --password-stdin
+          docker build -t "$IMAGE:$GITHUB_SHA" -t "$IMAGE:latest" -t "$IMAGE:prod" .
+          docker push "$IMAGE:$GITHUB_SHA"
+          docker push "$IMAGE:latest"
+          docker push "$IMAGE:prod"
+
+      - name: Trigger deployment
+        if: ${{ vars.DEPLOY_URL != '' }}
+        run: |
+          curl --fail --silent --show-error -X POST \
+            -H "Authorization: Bearer $DEPLOY_TOKEN" \
+            "$DEPLOY_URL"
